@@ -14,12 +14,16 @@ func _physics_process(delta):
 		$"camera pivot".rotation.y = lerp($"camera pivot".rotation.y, default_rotate.x, 6*delta)
 		$"camera pivot".rotation.x = lerp($"camera pivot".rotation.x, default_rotate.y, 6*delta)
 
-func add_radar_item(item):
-	var new_item = radar_dot.instance()
-	new_item.set_item_name(item["name"])
-	radar_items[new_item.get_item_name()] = new_item
+func set_radar_item(item):
+	var new_item
+	if radar_items.has(item["name"]):
+		new_item = radar_items[item["name"]]
+	else:
+		new_item = radar_dot.instance()
+		new_item.set_item_name(item["name"])
+		radar_items[new_item.get_item_name()] = new_item
+		$dots.add_child(new_item)
 	new_item.translation = item["relative_position"]
-	$dots.add_child(new_item)
 
 func remove_radar_item(id):
 	radar_items[id].queue_free()

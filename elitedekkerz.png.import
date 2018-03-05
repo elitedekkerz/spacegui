@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/slider dot.png-0d76216ae2af3cad7f7d7f9d17c45842.stex"
+path="res://.import/elitedekkerz.png-edcf4ccc573b9c8ecb6db3e02ab54af4.stex"
 
 [deps]
 
-source_file="res://slider dot.png"
-source_md5="5518b01e9071483216aafb541cd648bd"
+source_file="res://elitedekkerz.png"
+source_md5="c81c3752d25621e1167d2f00da11913a"
 
-dest_files=[ "res://.import/slider dot.png-0d76216ae2af3cad7f7d7f9d17c45842.stex" ]
-dest_md5="42399e539b6b35bcf39a97ed18890e23"
+dest_files=[ "res://.import/elitedekkerz.png-edcf4ccc573b9c8ecb6db3e02ab54af4.stex" ]
+dest_md5="dd60a205c0562adb69cbd81b6438bb6c"
 
 [params]
 

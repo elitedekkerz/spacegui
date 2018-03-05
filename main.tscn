@@ -48,10 +48,18 @@ __meta__ = {
 [node name="client" type="Node" parent="." index="0"]
 
 script = ExtResource( 1 )
-address = "localhost"
+address = "127.0.0.1"
 port = 1961
 ship_name = "Elite Dekkerz"
 player_name = "vurpo"
+retry_connection = true
+
+[node name="radar timer" type="Timer" parent="client" index="0"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = false
+autostart = true
 
 [node name="gui_root" type="Control" parent="." index="1"]
 
@@ -105,7 +113,7 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 44.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -140,6 +148,7 @@ radar_3d_path = NodePath("../radar 3d")
 
 size = Vector2( 800, 600 )
 transparent_bg = true
+render_target_update_mode = 3
 _sections_unfolded = [ "Audio Listener", "GUI", "Physics", "Render Target", "Rendering" ]
 
 [node name="reset" type="Button" parent="gui_root/Container/tab area/Radar" index="2"]
@@ -174,7 +183,7 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 44.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -217,7 +226,7 @@ anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 44.0
+margin_top = 40.0
 margin_right = -5.0
 margin_bottom = -5.0
 rect_pivot_offset = Vector2( 0, 0 )
@@ -256,7 +265,9 @@ tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
 
-[connection signal="radaritem" from="client" to="gui_root/Container/tab area/Radar/radar 3d" method="add_radar_item"]
+[connection signal="radaritem" from="client" to="gui_root/Container/tab area/Radar/radar 3d" method="set_radar_item"]
+
+[connection signal="timeout" from="client/radar timer" to="client" method="radar_scan"]
 
 [connection signal="pressed" from="gui_root/Container/tab area/Radar/reset" to="gui_root/Container/tab area/Radar/radar 3d" method="return_rotate"]
 
