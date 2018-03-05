@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://radar.gd" type="Script" id=1]
 [ext_resource path="res://radar2.png" type="Texture" id=2]
+[ext_resource path="res://radar_dot.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -19,7 +20,7 @@ vertex_color_is_srgb = false
 params_diffuse_mode = 0
 params_specular_mode = 0
 params_blend_mode = 0
-params_cull_mode = 0
+params_cull_mode = 2
 params_depth_draw_mode = 0
 params_line_width = 1.0
 params_point_size = 1.0
@@ -54,7 +55,7 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
-_sections_unfolded = [ "Albedo", "Flags" ]
+_sections_unfolded = [ "Albedo", "Flags", "Parameters" ]
 
 [sub_resource type="QuadMesh" id=2]
 
@@ -75,7 +76,8 @@ func _ready():
 	set_physics_process(true)
 
 func _physics_process(delta):
-	self.rotate(Vector3(0,1,0), delta*0.1)
+	#self.rotate(Vector3(0,1,0), delta*0.1)
+	pass
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
@@ -84,7 +86,7 @@ func _physics_process(delta):
 
 [sub_resource type="Environment" id=4]
 
-background_mode = 1
+background_mode = 0
 background_sky_custom_fov = 0.0
 background_color = Color( 0, 0, 0, 1 )
 background_energy = 1.0
@@ -167,13 +169,13 @@ arvr = false
 size = Vector2( 1000, 1000 )
 own_world = false
 world = null
-transparent_bg = true
+transparent_bg = false
 msaa = 0
 hdr = true
 disable_3d = false
 usage = 2
 debug_draw = 0
-render_target_v_flip = false
+render_target_v_flip = true
 render_target_clear_mode = 0
 render_target_update_mode = 2
 audio_listener_enable_2d = false
@@ -208,12 +210,13 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="camera pivot" type="Spatial" parent="." index="1"]
 
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )
 script = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Camera" type="Camera" parent="camera pivot" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 0.835094, 0.550108, 0, -0.550108, 0.835094, 0, 7.5085, 16.3353 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = SubResource( 4 )
@@ -222,10 +225,18 @@ v_offset = 0.0
 doppler_tracking = 0
 projection = 0
 current = true
-fov = 60.0
+fov = 30.0
 size = 1.0
 near = 0.05
 far = 100.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="dots" type="Spatial" parent="." index="2"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="Spatial" parent="dots" index="0" instance=ExtResource( 3 )]
+
 _sections_unfolded = [ "Transform" ]
 
 

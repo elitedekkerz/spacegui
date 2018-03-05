@@ -1,8 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://dot.png" type="Texture" id=1]
+[ext_resource path="res://fonts/Roboto-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://dot.png" type="Texture" id=2]
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=1]
 
 script/source = "extends Spatial
 
@@ -13,12 +14,20 @@ func _ready():
 
 func set_item_name(name):
 	item_name = name
-	$Viewport/label.name = name
+	$Control/Viewport/label.text = name
 
 func get_item_name():
 	return item_name"
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="DynamicFont" id=7]
+
+size = 23
+use_mipmaps = true
+use_filter = false
+font_data = ExtResource( 1 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="SpatialMaterial" id=9]
 
 render_priority = 0
 flags_transparent = true
@@ -42,7 +51,6 @@ params_billboard_mode = 1
 params_grow = false
 params_use_alpha_scissor = false
 albedo_color = Color( 1, 1, 1, 1 )
-albedo_texture = ExtResource( 1 )
 metallic = 0.0
 metallic_specular = 0.5
 metallic_texture_channel = 0
@@ -69,20 +77,15 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
-_sections_unfolded = [ "Albedo", "Flags", "Parameters", "Vertex Color" ]
+_sections_unfolded = [ "Flags", "Parameters" ]
 
-[sub_resource type="QuadMesh" id=3]
-
-material = SubResource( 4 )
-size = Vector2( 0.5, 0.5 )
-
-[sub_resource type="ViewportTexture" id=6]
+[sub_resource type="ViewportTexture" id=8]
 
 resource_local_to_scene = true
 flags = 0
-viewport_path = NodePath("Viewport")
+viewport_path = NodePath("Control/Viewport")
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=6]
 
 render_priority = 0
 flags_transparent = true
@@ -106,7 +109,6 @@ params_billboard_mode = 1
 params_grow = false
 params_use_alpha_scissor = false
 albedo_color = Color( 1, 1, 1, 1 )
-albedo_texture = SubResource( 6 )
 metallic = 0.0
 metallic_specular = 0.5
 metallic_texture_channel = 0
@@ -133,54 +135,32 @@ uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
 proximity_fade_enable = false
 distance_fade_enable = false
-_sections_unfolded = [ "Albedo", "Flags", "Parameters", "Vertex Color" ]
-
-[sub_resource type="QuadMesh" id=8]
-
-material = SubResource( 7 )
-size = Vector2( 1, 1 )
+_sections_unfolded = [ "Parameters" ]
 
 [node name="Spatial" type="Spatial"]
 
-script = SubResource( 9 )
+script = SubResource( 1 )
 item_name = "item"
 
-[node name="dot" type="MeshInstance" parent="." index="0"]
+[node name="Control" type="Control" parent="." index="0"]
 
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
-skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "Flags", "Geometry", "Transform", "Visibility" ]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
 
-[node name="label texture" type="MeshInstance" parent="." index="1"]
-
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
-mesh = SubResource( 8 )
-skeleton = NodePath("..")
-material/0 = null
-_sections_unfolded = [ "Transform" ]
-
-[node name="Viewport" type="Viewport" parent="." index="2"]
+[node name="Viewport" type="Viewport" parent="Control" index="0"]
 
 arvr = false
-size = Vector2( 100, 100 )
+size = Vector2( 400, 400 )
 own_world = false
 world = null
 transparent_bg = true
@@ -188,8 +168,8 @@ msaa = 0
 hdr = true
 disable_3d = false
 usage = 2
-debug_draw = 2
-render_target_v_flip = true
+debug_draw = 0
+render_target_v_flip = false
 render_target_clear_mode = 0
 render_target_update_mode = 2
 audio_listener_enable_2d = false
@@ -202,27 +182,94 @@ shadow_atlas_quad_0 = 2
 shadow_atlas_quad_1 = 2
 shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
-_sections_unfolded = [ "Render Target", "Rendering" ]
+_sections_unfolded = [ "Render Target" ]
 
-[node name="label" type="Label" parent="Viewport" index="0"]
+[node name="label" type="Label" parent="Control/Viewport" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 100.0
-margin_bottom = 200.0
+margin_right = 400.0
+margin_bottom = 190.0
 rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 6
+text = "avaruusalus :-D"
 align = 1
+valign = 2
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "Margin" ]
+_sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="dots" type="Spatial" parent="." index="3"]
+[node name="label texture" type="Sprite3D" parent="." index="1"]
+
+layers = 1
+material_override = SubResource( 9 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+centered = true
+offset = Vector2( 0, 0 )
+flip_h = false
+flip_v = true
+modulate = Color( 1, 1, 1, 1 )
+opacity = 1.0
+pixel_size = 0.02
+axis = 2
+transparent = true
+shaded = false
+double_sided = true
+alpha_cut = 0
+texture = SubResource( 8 )
+vframes = 1
+hframes = 1
+frame = 0
+region_enabled = false
+region_rect = Rect2( 0, 0, 0, 0 )
+_sections_unfolded = [ "Geometry", "Transform" ]
+
+[node name="dot" type="Sprite3D" parent="." index="2"]
+
+layers = 1
+material_override = SubResource( 6 )
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+centered = true
+offset = Vector2( 0, 0 )
+flip_h = false
+flip_v = false
+modulate = Color( 1, 1, 1, 1 )
+opacity = 1.0
+pixel_size = 0.003
+axis = 2
+transparent = true
+shaded = false
+double_sided = true
+alpha_cut = 0
+texture = ExtResource( 2 )
+vframes = 1
+hframes = 1
+frame = 0
+region_enabled = false
+region_rect = Rect2( 0, 0, 0, 0 )
+_sections_unfolded = [ "Flags", "Geometry", "Transform", "Visibility" ]
 
 

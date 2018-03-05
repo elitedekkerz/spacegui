@@ -12,12 +12,18 @@ config_version=3
 
 config/name="spacegui"
 run/main_scene="res://main.tscn"
-config/icon="res://icon.png"
+boot_splash/image="res://wat.png"
+config/icon="res://wat.png"
 
 [display]
 
 window/size/width=800
 
+[gui]
+
+theme/custom="res://teema.tres"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=true

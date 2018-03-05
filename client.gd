@@ -15,10 +15,19 @@ var prompt = "Yuri>"
 signal connected
 signal disconnected
 
-signal radaritem(gameobject)
+signal radaritem(item)
 
 func _init():
+	pass
+
+func _ready():
 	connect()
+	for i in range(20):
+		var item = {
+			"name":"item-%d"%i,
+			"relative_position":Vector3(rand_range(-7,7),rand_range(-5,5),rand_range(-7,7))
+			};
+		emit_signal("radaritem", item)
 
 func connect():
 	connection.connect_to_host(address, port)

@@ -1,0 +1,32 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/slider dot.png-0d76216ae2af3cad7f7d7f9d17c45842.stex"
+
+[deps]
+
+source_file="res://slider dot.png"
+source_md5="3df627e0b806d8fb975d335d13152175"
+
+dest_files=[ "res://.import/slider dot.png-0d76216ae2af3cad7f7d7f9d17c45842.stex" ]
+dest_md5="131f6dc0dcb2792d62ade7a37a600685"
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
