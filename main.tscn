@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://client.gd" type="Script" id=1]
 [ext_resource path="res://radar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fonts/Roboto-Black.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://cargolist.gd" type="Script" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -39,6 +41,18 @@ func _gui_input(event):
 		elif Input.is_mouse_button_pressed(BUTTON_LEFT):
 			get_node(radar_3d_path).radar_rotate(event.relative*0.005)"
 
+[sub_resource type="DynamicFont" id=4]
+
+size = 18
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 3 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="Theme" id=5]
+
+default_font = SubResource( 4 )
+
 [node name="Node" type="Node" index="0"]
 
 __meta__ = {
@@ -48,18 +62,11 @@ __meta__ = {
 [node name="client" type="Node" parent="." index="0"]
 
 script = ExtResource( 1 )
-address = "127.0.0.1"
+address = "localhost"
 port = 1961
-ship_name = "Elite Dekkerz"
+ship_name = "dkz-1"
 player_name = "vurpo"
 retry_connection = true
-
-[node name="radar timer" type="Timer" parent="client" index="0"]
-
-process_mode = 1
-wait_time = 2.0
-one_shot = false
-autostart = true
 
 [node name="gui_root" type="Control" parent="." index="1"]
 
@@ -107,6 +114,7 @@ _sections_unfolded = [ "Anchor", "Focus", "Grow Direction", "Hint", "Margin", "M
 
 [node name="Radar" type="Panel" parent="gui_root/Container/tab area" index="0"]
 
+visible = false
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -175,9 +183,8 @@ flat = false
 align = 1
 _sections_unfolded = [ "Anchor", "Margin" ]
 
-[node name="Ship crew" type="Container" parent="gui_root/Container/tab area" index="1"]
+[node name="Cargo" type="Container" parent="gui_root/Container/tab area" index="1"]
 
-visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -193,30 +200,123 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="Button" type="Button" parent="gui_root/Container/tab area/Ship crew" index="0"]
+[node name="label" type="Label" parent="gui_root/Container/tab area/Cargo" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "1337.69 kg of cargo"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="header" type="HBoxContainer" parent="gui_root/Container/tab area/Cargo" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_top = 33.0
+margin_bottom = 73.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="name" type="Label" parent="gui_root/Container/tab area/Cargo/header" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 277.0
-margin_top = 273.0
-margin_right = 465.0
-margin_bottom = 374.0
+margin_top = 5.0
+margin_right = 393.0
+margin_bottom = 35.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-focus_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = SubResource( 5 )
+text = "Material"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Theme", "custom_styles" ]
+
+[node name="quantity" type="Label" parent="gui_root/Container/tab area/Cargo/header" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 397.0
+margin_top = 5.0
+margin_right = 790.0
+margin_bottom = 35.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = SubResource( 5 )
+text = "Quantity"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Margin", "Size Flags", "Theme" ]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="gui_root/Container/tab area/Cargo" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 69.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
 mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-text = "aaa"
-flat = false
-align = 1
+scroll_horizontal_enabled = false
+scroll_horizontal = 0
+scroll_vertical_enabled = true
+scroll_vertical = 0
+_sections_unfolded = [ "Anchor", "Margin", "Scroll", "Size Flags" ]
+
+[node name="list" type="VBoxContainer" parent="gui_root/Container/tab area/Cargo/ScrollContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 790.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+script = ExtResource( 4 )
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Size Flags" ]
 
 [node name="Engine" type="Container" parent="gui_root/Container/tab area" index="2"]
 
@@ -265,9 +365,57 @@ tick_count = 0
 ticks_on_borders = false
 focus_mode = 2
 
-[connection signal="radaritem" from="client" to="gui_root/Container/tab area/Radar/radar 3d" method="set_radar_item"]
+[node name="name label" type="Label" parent="gui_root" index="1"]
 
-[connection signal="timeout" from="client/radar timer" to="client" method="radar_scan"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 6.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Yuri"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Margin" ]
+
+[node name="ship label" type="Label" parent="gui_root" index="2"]
+
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_right = -6.0
+margin_bottom = 33.0
+grow_horizontal = 0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "not on a ship"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect" ]
+
+[connection signal="cargolabel" from="client" to="gui_root/Container/tab area/Cargo/label" method="set_text"]
+
+[connection signal="cargolist" from="client" to="gui_root/Container/tab area/Cargo/ScrollContainer/list" method="update_list"]
+
+[connection signal="membername" from="client" to="gui_root/name label" method="set_text"]
+
+[connection signal="radaritems" from="client" to="gui_root/Container/tab area/Radar/radar 3d" method="update_radar_items"]
+
+[connection signal="shipname" from="client" to="gui_root/ship label" method="set_text"]
 
 [connection signal="pressed" from="gui_root/Container/tab area/Radar/reset" to="gui_root/Container/tab area/Radar/radar 3d" method="return_rotate"]
 
